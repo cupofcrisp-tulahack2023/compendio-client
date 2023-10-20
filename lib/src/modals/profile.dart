@@ -12,10 +12,11 @@ class ProfileModal extends StatelessWidget {
         children: <Widget>[
           const Row(
             children: <Widget>[
-              SizedBox(
-                height: 80,
-                width: 80,
+              CircleAvatar(
+                radius: 40,
+                backgroundColor: Colors.grey,
                 child: CircleAvatar(
+                  radius: 38,
                   child: Icon(Icons.person_outline),
                 ),
               ),
@@ -33,8 +34,8 @@ class ProfileModal extends StatelessWidget {
             shrinkWrap: true,
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.message_rounded),
-                title: Text("Lorem ipsum dolor sit amet"),
+                leading: const Icon(Icons.message_rounded),
+                title: const Text("Lorem ipsum dolor sit amet"),
                 onTap: () {},
               ),
               ListTile(
