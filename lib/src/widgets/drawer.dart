@@ -89,7 +89,7 @@ class DrawerWidget extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return const NewGroupModal();
+                  return NewGroupModal();
                 },
               );
             },
