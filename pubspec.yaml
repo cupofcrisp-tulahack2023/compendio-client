@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   design_box: ^1.0.0
   round_icon:
-        git:
-            url: https://github.com/teixeirazeus/round_icon
+    git:
+      url: https://github.com/teixeirazeus/round_icon
   material_text_fields: ^1.0.3
   cupertino_icons: ^1.0.2
 

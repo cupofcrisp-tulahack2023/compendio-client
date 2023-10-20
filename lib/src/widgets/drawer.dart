@@ -1,4 +1,5 @@
 import "package:compendio/src/modals/new_group.dart";
+import "package:compendio/src/modals/profile.dart";
 import "package:compendio/src/modals/settings.dart";
 import "package:compendio/src/pages/favourite.dart";
 import "package:compendio/src/pages/my_groups.dart";
@@ -19,10 +20,30 @@ class DrawerWidget extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               shape: BoxShape.rectangle,
             ),
-            child: const Text("HEADER"),
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const ProfileModal();
+                  },
+                );
+              },
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  CircleAvatar(
+                    child: Icon(Icons.person_outline),
+                  ),
+                  Text("Имя пользователя"),
+                  Text("ID пользователя"),
+                ],
+              ),
+            ),
           ),
           ListTile(
-              leading: Icon(Icons.groups_rounded),
+              leading: Icon(Icons.group_outlined),
               title: Text("Мои группы"),
               onTap: () {
                 Navigator.push(
@@ -44,7 +65,7 @@ class DrawerWidget extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.star_rate_rounded),
+              leading: Icon(Icons.bookmark_outline_rounded),
               title: Text("Избранное"),
               onTap: () {
                 Navigator.push(
@@ -55,7 +76,7 @@ class DrawerWidget extends StatelessWidget {
                 );
               }),
           ListTile(
-            leading: Icon(Icons.add),
+            leading: Icon(Icons.add_outlined),
             title: Text("Создать новую группу"),
             onTap: () {
               showDialog(
@@ -67,7 +88,7 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Icon(Icons.settings_outlined),
             title: Text("Настройки"),
             onTap: () {
               showDialog(
@@ -79,7 +100,7 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
           const ListTile(
-            leading: Icon(Icons.nightlight_round),
+            leading: Icon(Icons.nightlight_outlined),
             title: Text("Ночной режим"),
             trailing: Switch(value: false, onChanged: null),
           ),
