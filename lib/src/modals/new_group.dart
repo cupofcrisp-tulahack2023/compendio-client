@@ -1,3 +1,4 @@
+import "package:compendio/src/modals/base.dart";
 import "package:flutter/material.dart";
 
 class NewGroupModal extends StatelessWidget {
@@ -5,11 +6,9 @@ class NewGroupModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: Container(
-        height: 400,
-        child: const Text("NEW GROUP"),
-      ),
+    return const BaseModal(
+      height: 400,
+      body: Text("NEW GROUP"),
     );
   }
 }

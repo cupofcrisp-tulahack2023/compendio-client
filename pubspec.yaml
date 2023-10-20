@@ -15,6 +15,7 @@ dependencies:
     git:
       url: https://github.com/teixeirazeus/round_icon
   material_text_fields: ^1.0.3
+  url_launcher: ^6.1.14
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

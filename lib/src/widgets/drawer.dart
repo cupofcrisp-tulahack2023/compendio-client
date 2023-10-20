@@ -33,8 +33,12 @@ class DrawerWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CircleAvatar(
-                    child: Icon(Icons.person_outline),
+                  SizedBox(
+                    height: 60,
+                    width: 60,
+                    child: CircleAvatar(
+                      child: Icon(Icons.person_outline),
+                    ),
                   ),
                   Text("Имя пользователя"),
                   Text("ID пользователя"),
