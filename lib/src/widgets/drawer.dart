@@ -40,6 +40,9 @@ class DrawerWidget extends StatelessWidget {
                       child: Icon(Icons.person_outline),
                     ),
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Text("Имя пользователя"),
                   Text("ID пользователя"),
                 ],
@@ -47,8 +50,8 @@ class DrawerWidget extends StatelessWidget {
             ),
           ),
           ListTile(
-              leading: Icon(Icons.group_outlined),
-              title: Text("Мои группы"),
+              leading: const Icon(Icons.group_outlined),
+              title: const Text("Мои группы"),
               onTap: () {
                 Navigator.push(
                   context,
@@ -58,8 +61,8 @@ class DrawerWidget extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.notes),
-              title: Text("Заметки"),
+              leading: const Icon(Icons.notes),
+              title: const Text("Заметки"),
               onTap: () {
                 Navigator.push(
                   context,
@@ -69,8 +72,8 @@ class DrawerWidget extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.bookmark_outline_rounded),
-              title: Text("Избранное"),
+              leading: const Icon(Icons.bookmark_outline_rounded),
+              title: const Text("Избранное"),
               onTap: () {
                 Navigator.push(
                   context,
@@ -80,8 +83,8 @@ class DrawerWidget extends StatelessWidget {
                 );
               }),
           ListTile(
-            leading: Icon(Icons.add_outlined),
-            title: Text("Создать новую группу"),
+            leading: const Icon(Icons.add_outlined),
+            title: const Text("Создать новую группу"),
             onTap: () {
               showDialog(
                 context: context,
@@ -92,8 +95,8 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings_outlined),
-            title: Text("Настройки"),
+            leading: const Icon(Icons.settings_outlined),
+            title: const Text("Настройки"),
             onTap: () {
               showDialog(
                 context: context,
