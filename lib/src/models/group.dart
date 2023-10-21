@@ -1,3 +1,4 @@
+import 'package:compendio/src/models/compendio.dart';
 import 'package:compendio/src/models/user.dart';
 
 class Group {
@@ -6,4 +7,5 @@ class Group {
   String description = "";
   List<String> tags = [];
   List<User> members = [];
+  List<Compendio> compendios = [];
 }

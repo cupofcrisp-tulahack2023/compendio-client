@@ -58,7 +58,9 @@ class _GroupPageState extends State<GroupPage> {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return const NewCompendioModal();
+              return NewCompendioModal(
+                groupName: name,
+              );
             },
           );
         },

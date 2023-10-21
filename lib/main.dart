@@ -1,4 +1,5 @@
 import 'package:compendio/src/pages/my_groups.dart';
+import 'package:compendio/src/services/compendio.dart';
 import 'package:compendio/src/services/group.dart';
 import 'package:compendio/src/services/image.dart';
 import 'package:compendio/src/services/tag.dart';
@@ -11,6 +12,7 @@ void main() {
   GetIt.I.registerSingleton<ImageService>(ImageService());
   GetIt.I.registerSingleton<GroupService>(GroupService());
   GetIt.I.registerSingleton<UserService>(UserService());
+  GetIt.I.registerSingleton<CompendioService>(CompendioService());
 
   runApp(const MyApp());
 }

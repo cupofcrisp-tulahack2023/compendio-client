@@ -1,3 +1,4 @@
+import 'package:compendio/src/models/compendio.dart';
 import 'package:compendio/src/models/group.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -36,5 +37,10 @@ class GroupService extends ChangeNotifier {
         ..name = name
         ..tags = tags,
     );
+  }
+
+  Future<void> addCompendioToGroup(String name, Compendio comp) async {
+    int index = groups.indexWhere((element) => element.name == name);
+    groups[index].compendios.add(comp);
   }
 }
