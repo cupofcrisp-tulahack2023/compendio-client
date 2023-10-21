@@ -18,16 +18,12 @@ class DrawerWidget extends StatefulWidget {
 
 class _DrawerWidgetState extends State<DrawerWidget> {
   final UserService userService = UserService();
-  bool _isLoading = true;
-  User user = User();
+  late Future<User> user;
 
-  void _getUser() async {
-    return await userService.getUser().then((user) {
-      setState(() {
-        _isLoading = false;
-        this.user = user;
-      });
-    });
+  @override
+  void initState() {
+    super.initState();
+    user = userService.getProfile();
   }
 
   @override
@@ -41,10 +37,41 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).primaryColor,
               shape: BoxShape.rectangle,
             ),
-            child: Builder(
-              builder: (BuildContext context) {
-                if (_isLoading) {
-                  _getUser();
+            child: FutureBuilder<User>(
+                future: user,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    User data = snapshot.data!;
+                    return GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const ProfileModal();
+                          },
+                        );
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const SizedBox(
+                            height: 60,
+                            width: 60,
+                            child: CircleAvatar(
+                              child: Icon(Icons.person_outline),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(data.userName),
+                          Text(data.userID),
+                        ],
+                      ),
+                    );
+                  } else if (snapshot.hasError) {}
+
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,37 +99,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                     ],
                   );
-                }
-                return GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const ProfileModal();
-                      },
-                    );
-                  },
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 60,
-                        width: 60,
-                        child: CircleAvatar(
-                          child: Icon(Icons.person_outline),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text("Имя пользователя"),
-                      Text("ID пользователя"),
-                    ],
-                  ),
-                );
-              },
-            ),
+                }),
           ),
           ListTile(
               leading: const Icon(Icons.group_outlined),
@@ -111,7 +108,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MyGroupsPage(),
+                    builder: (context) => MyGroupsPage(),
                   ),
                 );
               }),

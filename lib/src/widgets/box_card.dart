@@ -3,11 +3,11 @@ import "package:design_box/box.dart";
 import "package:flutter/material.dart";
 
 class BoxCardWidget extends StatelessWidget {
-  final String title;
+  final String name;
   final String description;
 
   const BoxCardWidget(
-      {super.key, required this.title, this.description = "No description"});
+      {super.key, required this.name, this.description = "No description"});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class BoxCardWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title),
+          Text(name),
           Text(description),
         ],
       ),
@@ -33,7 +33,7 @@ class BoxCardWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => GroupPage(
-              title: title,
+              title: name,
             ),
           ),
         );

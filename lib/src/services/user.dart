@@ -1,8 +1,10 @@
 import 'package:compendio/src/models/user.dart';
 
 class UserService {
-  Future<User> getUser() async {
-    return Future.delayed(
+  User? profile;
+
+  Future<User> getProfile() async {
+    profile ??= await Future.delayed(
       const Duration(
         seconds: 1,
       ),
@@ -12,5 +14,6 @@ class UserService {
         ..userDescription = "User description"
         ..userID = "UserID",
     );
+    return profile!;
   }
 }
