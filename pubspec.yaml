@@ -17,6 +17,7 @@ dependencies:
   material_text_fields: ^1.0.3
   multi_select_flutter: ^4.1.3
   url_launcher: ^6.1.14
+  image_picker: ^1.0.4
   animated_shimmer: ^1.0.0
   cupertino_icons: ^1.0.2
 

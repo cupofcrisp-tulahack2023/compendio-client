@@ -47,7 +47,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return const ProfileModal();
+                            return ProfileModal();
                           },
                         );
                       },

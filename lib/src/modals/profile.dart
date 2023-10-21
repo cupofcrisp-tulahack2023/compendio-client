@@ -1,8 +1,24 @@
+import "dart:io";
+
 import "package:compendio/src/modals/base.dart";
+import "package:compendio/src/services/image.dart";
 import "package:flutter/material.dart";
 
-class ProfileModal extends StatelessWidget {
-  const ProfileModal({super.key});
+class ProfileModal extends StatefulWidget {
+  final ImageService imageService = ImageService();
+
+  ProfileModal({super.key});
+
+  @override
+  State<ProfileModal> createState() =>
+      _ProfileModalState(imageService: imageService);
+}
+
+class _ProfileModalState extends State<ProfileModal> {
+  var _image;
+  final ImageService imageService;
+
+  _ProfileModalState({required this.imageService});
 
   @override
   Widget build(BuildContext context) {
@@ -10,20 +26,39 @@ class ProfileModal extends StatelessWidget {
       height: 450,
       body: Column(
         children: <Widget>[
-          const Row(
+          Row(
             children: <Widget>[
               CircleAvatar(
                 radius: 40,
                 backgroundColor: Colors.grey,
-                child: CircleAvatar(
-                  radius: 38,
-                  child: Icon(Icons.person_outline),
+                child: GestureDetector(
+                  onTap: () async {
+                    File image = await imageService.fromGallery();
+                    setState(() {
+                      _image = File(image.path);
+                    });
+                  },
+                  child: CircleAvatar(
+                    radius: 38,
+                    child: _image == null
+                        ? const Icon(Icons.person_outline)
+                        : Container(
+                            width: 100,
+                            height: 100,
+                            child: ClipOval(
+                              child: Image.file(
+                                _image,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
+                          ),
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 30,
               ),
-              Text("Имя пользователя"),
+              const Text("Имя пользователя"),
             ],
           ),
           const SizedBox(

@@ -22,6 +22,10 @@ class GroupService {
 
   Future<Group> getGroupByName(String name) {
     return Future.delayed(const Duration(seconds: 2),
-        () => groups.firstWhere((element) => element.name == name));
+            () => groups.firstWhere((element) => element.name == name));
+  }
+
+  void createGroup(Group group) {
+    groups.add(group);
   }
 }
