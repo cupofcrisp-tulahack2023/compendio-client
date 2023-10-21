@@ -11,8 +11,12 @@ class CompendioBloc extends Bloc<CompendioEvent, CompendioState> {
   final CompendioService compendioService = GetIt.I<CompendioService>();
 
   CompendioBloc() : super(CompendioInitial()) {
-    on<CompendioEvent>((event, emit) {
-      // TODO: implement event handler
+    on<NewCompendioEvent>((event, emit) async {
+      print("NEW COMPENDIO");
+      List<Compendio> comps =
+          await compendioService.getGroupCompendios(event.groupName);
+      print(comps);
+      emit(CompendioState(comps: comps));
     });
   }
 }

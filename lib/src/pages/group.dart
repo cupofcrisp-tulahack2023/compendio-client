@@ -1,10 +1,14 @@
 import "package:compendio/src/modals/group_details.dart";
 import "package:compendio/src/modals/new_compendio.dart";
+import "package:compendio/src/models/compendio.dart";
 import "package:compendio/src/models/group.dart";
 import "package:compendio/src/pages/base.dart";
+import "package:compendio/src/providers/compendio/compendio_bloc.dart";
 import "package:compendio/src/services/group.dart";
 import "package:compendio/src/widgets/appbar_details.dart";
+import "package:compendio/src/widgets/box_card.dart";
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 import "package:get_it/get_it.dart";
 
 class GroupPage extends StatefulWidget {
@@ -33,38 +37,70 @@ class _GroupPageState extends State<GroupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BasePage(
-      title: AppBarDetailsWidget(
-        title: widget.name,
-        modal: FutureBuilder(
-          future: group,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              Group data = snapshot.data!;
-              return GroupDetailsModal(
-                group: data,
-              );
-            } else if (snapshot.hasError) {}
+    return BlocProvider(
+      create: (context) {
+        CompendioBloc _bloc = CompendioBloc();
+        _bloc.add(NewCompendioEvent(groupName: name));
+        return _bloc;
+      },
+      child: Builder(
+        builder: (BuildContext context) {
+          List<Compendio>? comps = context.watch<CompendioBloc>().state.comps;
+          return BasePage(
+            title: AppBarDetailsWidget(
+              title: widget.name,
+              modal: FutureBuilder(
+                future: group,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    Group data = snapshot.data!;
+                    return GroupDetailsModal(
+                      group: data,
+                    );
+                  } else if (snapshot.hasError) {}
 
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        ),
-      ),
-      body: Text("GROUP ${widget.name}"),
-      floating: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return NewCompendioModal(
-                groupName: name,
-              );
-            },
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            ),
+            body: comps == null
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : GridView(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    children: comps
+                        .map(
+                          (e) => BoxCardWidget(
+                            name: e.name,
+                            description: e.description,
+                          ),
+                        )
+                        .toList(),
+                  ),
+            floating: FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext ctx) {
+                    return NewCompendioModal(
+                      groupName: name,
+                      bloc: BlocProvider.of<CompendioBloc>(context),
+                    );
+                  },
+                );
+              },
+              child: const Icon(Icons.add_outlined),
+            ),
           );
         },
-        child: const Icon(Icons.add_outlined),
       ),
     );
   }

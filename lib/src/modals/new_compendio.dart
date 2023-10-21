@@ -1,6 +1,7 @@
 import "dart:io";
 
 import "package:compendio/src/modals/base.dart";
+import "package:compendio/src/providers/compendio/compendio_bloc.dart";
 import "package:compendio/src/services/compendio.dart";
 import "package:compendio/src/services/image.dart";
 import "package:flutter/material.dart";
@@ -10,15 +11,17 @@ import "package:material_text_fields/material_text_fields.dart";
 class NewCompendioModal extends StatefulWidget {
   final ImageService imageService = GetIt.I<ImageService>();
   final CompendioService compendioService = GetIt.I<CompendioService>();
+  final CompendioBloc bloc;
   final String groupName;
 
-  NewCompendioModal({super.key, required this.groupName});
+  NewCompendioModal({super.key, required this.groupName, required this.bloc});
 
   @override
   State<NewCompendioModal> createState() => _NewCompendioModalState(
         groupName: groupName,
         imageService: imageService,
         compendioService: compendioService,
+        bloc: bloc,
       );
 }
 
@@ -28,13 +31,16 @@ class _NewCompendioModalState extends State<NewCompendioModal> {
   String _desc = "";
   bool _access = false;
   final String groupName;
+  final CompendioBloc bloc;
   final ImageService imageService;
   final CompendioService compendioService;
 
-  _NewCompendioModalState(
-      {required this.groupName,
-      required this.imageService,
-      required this.compendioService});
+  _NewCompendioModalState({
+    required this.groupName,
+    required this.imageService,
+    required this.compendioService,
+    required this.bloc,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +93,11 @@ class _NewCompendioModalState extends State<NewCompendioModal> {
             onPressed: () async {
               await compendioService.newCompendio(
                   groupName, _image, _name, _desc, _access);
+              bloc.add(
+                NewCompendioEvent(
+                  groupName: groupName,
+                ),
+              );
               Navigator.pop(context, this);
             },
             child: const Text("Создать"),
