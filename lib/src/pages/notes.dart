@@ -7,7 +7,7 @@ class NotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const BasePage(
-      title: "Заметки",
+      title: Text("Заметки"),
       body: Text("NOTES"),
     );
   }

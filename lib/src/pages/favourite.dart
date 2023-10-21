@@ -7,7 +7,7 @@ class FavouritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const BasePage(
-      title: "Избранное",
+      title: Text("Избранное"),
       body: Text("FAVOURITE"),
     );
   }

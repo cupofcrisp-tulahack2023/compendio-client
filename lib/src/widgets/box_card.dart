@@ -2,11 +2,11 @@ import "package:compendio/src/pages/group.dart";
 import "package:design_box/box.dart";
 import "package:flutter/material.dart";
 
-class BoxCard extends StatelessWidget {
+class BoxCardWidget extends StatelessWidget {
   final String title;
   final String description;
 
-  const BoxCard(
+  const BoxCardWidget(
       {super.key, required this.title, this.description = "No description"});
 
   @override

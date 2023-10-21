@@ -26,7 +26,6 @@ class _NewGroupModalState extends State<NewGroupModal> {
   Widget build(BuildContext context) {
     List<String> tags = tagService.getTags();
     return BaseModal(
-      height: 500,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -37,7 +36,8 @@ class _NewGroupModalState extends State<NewGroupModal> {
             textInputAction: TextInputAction.next,
             prefixIcon: Icon(Icons.edit_outlined),
           ),
-          Expanded(
+          Container(
+            height: 300,
             child: SingleChildScrollView(
               child: MultiSelectDialogField(
                 title: const Text("Теги"),
@@ -53,6 +53,7 @@ class _NewGroupModalState extends State<NewGroupModal> {
               ),
             ),
           ),
+          const SizedBox(height: 10),
           Container(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(

@@ -10,7 +10,7 @@ import "package:compendio/src/services/user.dart";
 import "package:flutter/material.dart";
 
 class DrawerWidget extends StatefulWidget {
-  DrawerWidget({super.key});
+  const DrawerWidget({super.key});
 
   @override
   State<DrawerWidget> createState() => _DrawerWidgetState();
@@ -45,7 +45,33 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               builder: (BuildContext context) {
                 if (_isLoading) {
                   _getUser();
-                  return AnimatedShimmer(width: double.infinity, height: 100);
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      AnimatedShimmer(
+                        width: 60,
+                        height: 60,
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      AnimatedShimmer(
+                        width: 150,
+                        height: 14,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      AnimatedShimmer(
+                        width: 100,
+                        height: 14,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ],
+                  );
                 }
                 return GestureDetector(
                   onTap: () {

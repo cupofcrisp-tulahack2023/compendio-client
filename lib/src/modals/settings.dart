@@ -8,7 +8,6 @@ class SettingsModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseModal(
-      height: 1000,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

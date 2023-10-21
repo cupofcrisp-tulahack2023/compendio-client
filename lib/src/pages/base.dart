@@ -4,7 +4,7 @@ import "package:flutter/material.dart";
 
 class BasePage extends StatelessWidget {
   final Widget body;
-  final String title;
+  final Widget title;
 
   const BasePage({super.key, required this.body, required this.title});
 

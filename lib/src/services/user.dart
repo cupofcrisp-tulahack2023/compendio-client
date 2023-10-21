@@ -4,7 +4,7 @@ class UserService {
   Future<User> getUser() async {
     return Future.delayed(
       const Duration(
-        seconds: 3,
+        seconds: 1,
       ),
       () => User()
         ..phoneNumber = "+7 (123) 123-12-12"

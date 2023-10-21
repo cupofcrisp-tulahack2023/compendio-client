@@ -1,14 +1,24 @@
 import "package:compendio/src/pages/base.dart";
+import "package:compendio/src/widgets/appbar_search.dart";
 import "package:compendio/src/widgets/box_card.dart";
 import "package:flutter/material.dart";
 
-class MyGroupsPage extends StatelessWidget {
+class MyGroupsPage extends StatefulWidget {
   const MyGroupsPage({super.key});
+
+  @override
+  State<MyGroupsPage> createState() => _MyGroupsPageState();
+}
+
+class _MyGroupsPageState extends State<MyGroupsPage> {
+  bool showFindField = false;
 
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: "Мои группы",
+      title: const AppBarSearchWidget(
+        title: "Мои группы",
+      ),
       body: GridView(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -17,17 +27,17 @@ class MyGroupsPage extends StatelessWidget {
         ),
         children: const <Widget>[
           GridTile(
-            child: BoxCard(
+            child: BoxCardWidget(
               title: "A",
             ),
           ),
           GridTile(
-            child: BoxCard(
+            child: BoxCardWidget(
               title: "B",
             ),
           ),
           GridTile(
-            child: BoxCard(
+            child: BoxCardWidget(
               title: "C",
             ),
           ),

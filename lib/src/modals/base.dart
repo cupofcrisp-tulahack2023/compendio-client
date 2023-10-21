@@ -6,15 +6,22 @@ class BaseModal extends StatelessWidget {
   final double padding;
 
   const BaseModal(
-      {super.key, required this.body, this.height = 600, this.padding = 30});
+      {super.key,
+      required this.body,
+      this.height = double.nan,
+      this.padding = 30});
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
-        height: height,
         padding: EdgeInsets.all(padding),
-        child: body,
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            body,
+          ],
+        ),
       ),
     );
   }
