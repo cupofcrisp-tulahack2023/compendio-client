@@ -1,5 +1,6 @@
 import "package:compendio/src/modals/base.dart";
 import "package:compendio/src/models/group.dart";
+import "package:compendio/src/widgets/avatar_with_border.dart";
 import "package:flutter/material.dart";
 
 class GroupDetailsModal extends StatelessWidget {
@@ -13,9 +14,16 @@ class GroupDetailsModal extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text("IMAGE"),
+          Row(
+            children: <Widget>[
+              AvatarWithBorderWidget(),
+              const SizedBox(
+                width: 20,
+              ),
+              Text(group.name),
+            ],
+          ),
           const Divider(),
-          Text(group.name),
           ListTile(
             leading: const Icon(Icons.edit_outlined),
             title: Text(group.description),

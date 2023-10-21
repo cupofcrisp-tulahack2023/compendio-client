@@ -1,24 +1,12 @@
-import "dart:io";
-
 import "package:compendio/src/modals/base.dart";
 import "package:compendio/src/services/image.dart";
+import "package:compendio/src/widgets/avatar_with_border.dart";
 import "package:flutter/material.dart";
 
-class ProfileModal extends StatefulWidget {
+class ProfileModal extends StatelessWidget {
   final ImageService imageService = ImageService();
 
   ProfileModal({super.key});
-
-  @override
-  State<ProfileModal> createState() =>
-      _ProfileModalState(imageService: imageService);
-}
-
-class _ProfileModalState extends State<ProfileModal> {
-  var _image;
-  final ImageService imageService;
-
-  _ProfileModalState({required this.imageService});
 
   @override
   Widget build(BuildContext context) {
@@ -28,33 +16,7 @@ class _ProfileModalState extends State<ProfileModal> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.grey,
-                child: GestureDetector(
-                  onTap: () async {
-                    File image = await imageService.fromGallery();
-                    setState(() {
-                      _image = File(image.path);
-                    });
-                  },
-                  child: CircleAvatar(
-                    radius: 38,
-                    child: _image == null
-                        ? const Icon(Icons.person_outline)
-                        : Container(
-                            width: 100,
-                            height: 100,
-                            child: ClipOval(
-                              child: Image.file(
-                                _image,
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                          ),
-                  ),
-                ),
-              ),
+              AvatarWithBorderWidget(),
               const SizedBox(
                 width: 30,
               ),
