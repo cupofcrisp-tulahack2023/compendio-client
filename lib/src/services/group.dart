@@ -1,6 +1,10 @@
 import 'package:compendio/src/models/group.dart';
 
 class GroupService {
+  GroupService() {
+    print("GROUP SERVICE CREATED");
+  }
+
   List<Group> groups = [
     Group()
       ..name = "A"
@@ -25,7 +29,11 @@ class GroupService {
             () => groups.firstWhere((element) => element.name == name));
   }
 
-  void createGroup(Group group) {
-    groups.add(group);
+  Future<void> createGroup(String name, List<String> tags) async {
+    groups.add(
+      Group()
+        ..name = name
+        ..tags = tags,
+    );
   }
 }
