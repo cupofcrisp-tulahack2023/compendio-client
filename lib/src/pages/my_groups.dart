@@ -1,3 +1,4 @@
+import "package:compendio/src/modals/new_group.dart";
 import "package:compendio/src/models/group.dart";
 import "package:compendio/src/pages/base.dart";
 import "package:compendio/src/providers/group/group_bloc.dart";
@@ -37,23 +38,41 @@ class _MyGroupsPageState extends State<MyGroupsPage> {
           List<Group> groups = context.watch<GroupBloc>().state.groups;
 
           return BasePage(
-              title: const AppBarSearchWidget(title: "Мои группы"),
-              groupBloc: BlocProvider.of<GroupBloc>(context),
-              body: GridView(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                children: groups
-                    .map(
-                      (e) => BoxCardWidget(
-                        name: e.name,
-                        description: e.description,
-                      ),
-                    )
-                    .toList(),
-              ));
+            title: const AppBarSearchWidget(title: "Мои группы"),
+            body: groups.isEmpty
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : GridView(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    children: groups
+                        .map(
+                          (e) => BoxCardWidget(
+                            name: e.name,
+                            description: e.description,
+                          ),
+                        )
+                        .toList(),
+                  ),
+            floating: FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext ctx) {
+                    return NewGroupModal(
+                      bloc: BlocProvider.of<GroupBloc>(context),
+                    );
+                  },
+                );
+              },
+            ),
+          );
         },
       ),
     );

@@ -22,9 +22,7 @@ class BasePage extends StatelessWidget {
       appBar: AppBarWidget(
         title: title,
       ),
-      drawer: DrawerWidget(
-        groupBloc: groupBloc,
-      ),
+      drawer: DrawerWidget(),
       body: Container(
         padding: const EdgeInsets.all(10),
         child: body,
