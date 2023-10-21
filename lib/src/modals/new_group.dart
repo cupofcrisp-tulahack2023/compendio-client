@@ -1,8 +1,9 @@
 import "package:compendio/src/modals/base.dart";
-import "package:compendio/src/pages/group.dart";
+import "package:compendio/src/providers/group/group_bloc.dart";
 import "package:compendio/src/services/group.dart";
 import "package:compendio/src/services/tag.dart";
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 import "package:get_it/get_it.dart";
 import "package:material_text_fields/material_text_fields.dart";
 import "package:multi_select_flutter/multi_select_flutter.dart";
@@ -25,7 +26,10 @@ class _NewGroupModalState extends State<NewGroupModal> {
   final GroupService groupService;
   late Future<List<String>> tags;
 
-  _NewGroupModalState({required this.tagService, required this.groupService});
+  _NewGroupModalState({
+    required this.tagService,
+    required this.groupService,
+  });
 
   @override
   void initState() {
@@ -91,15 +95,16 @@ class _NewGroupModalState extends State<NewGroupModal> {
             child: ElevatedButton(
               onPressed: () async {
                 await groupService.createGroup(_input, _selectedTags);
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GroupPage(
-                      name: _input,
-                    ),
-                  ),
-                );
+                BlocProvider.of<GroupBloc>(context).add(NewGroupEvent());
+                Navigator.pop(context, this);
               },
+              // await Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => GroupPage(
+              //       name: _input,
+              //     ),
+              //   ),
               child: const Text("Создать"),
             ),
           ),

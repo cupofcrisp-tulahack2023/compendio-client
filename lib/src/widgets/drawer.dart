@@ -6,19 +6,31 @@ import "package:compendio/src/models/user.dart";
 import "package:compendio/src/pages/favourite.dart";
 import "package:compendio/src/pages/my_groups.dart";
 import "package:compendio/src/pages/notes.dart";
+import "package:compendio/src/providers/group/group_bloc.dart";
 import "package:compendio/src/services/user.dart";
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:get_it/get_it.dart";
 
 class DrawerWidget extends StatefulWidget {
-  const DrawerWidget({super.key});
+  final GroupBloc? groupBloc;
+  final UserService userService = GetIt.I<UserService>();
+
+  DrawerWidget({super.key, this.groupBloc});
 
   @override
-  State<DrawerWidget> createState() => _DrawerWidgetState();
+  State<DrawerWidget> createState() => _DrawerWidgetState(
+        userService: userService,
+        groupBloc: groupBloc,
+      );
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
-  final UserService userService = UserService();
+  final UserService userService;
+  final GroupBloc? groupBloc;
   late Future<User> user;
+
+  _DrawerWidgetState({required this.userService, this.groupBloc});
 
   @override
   void initState() {
@@ -138,10 +150,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             leading: const Icon(Icons.add_outlined),
             title: const Text("Создать новую группу"),
             onTap: () {
+              Navigator.pop(context, this);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return NewGroupModal();
+                  return BlocProvider.value(
+                      value: groupBloc!, child: NewGroupModal());
                 },
               );
             },
