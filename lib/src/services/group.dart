@@ -19,4 +19,9 @@ class GroupService {
   Future<List<Group>> getGroups() {
     return Future.delayed(const Duration(seconds: 2), () => groups);
   }
+
+  Future<Group> getGroupByName(String name) {
+    return Future.delayed(const Duration(seconds: 2),
+        () => groups.firstWhere((element) => element.name == name));
+  }
 }

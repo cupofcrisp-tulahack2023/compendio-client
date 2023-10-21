@@ -33,7 +33,7 @@ class BoxCardWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => GroupPage(
-              title: name,
+              name: name,
             ),
           ),
         );
