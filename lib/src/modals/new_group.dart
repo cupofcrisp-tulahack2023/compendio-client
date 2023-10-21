@@ -13,7 +13,12 @@ class NewGroupModal extends StatelessWidget {
     "Начинающий уровень",
     "Продвинутый уровень",
     "Биология",
-    "Анатомия"
+    "Анатомия",
+    "Астрономия",
+    "Программирование",
+    "Музыка",
+    "Кожевничество",
+    "Кузнечное дело",
   ];
 
   List<String> selectedTags = [];
@@ -21,7 +26,7 @@ class NewGroupModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseModal(
-      height: 400,
+      height: 500,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -32,13 +37,29 @@ class NewGroupModal extends StatelessWidget {
             textInputAction: TextInputAction.next,
             prefixIcon: Icon(Icons.edit_outlined),
           ),
-          MultiSelectDialogField(
-            items: tags.map((e) => MultiSelectItem(e, e)).toList(),
-            listType: MultiSelectListType.CHIP,
-            onConfirm: (values) {
-              selectedTags = values;
-            },
-          )
+          Expanded(
+            child: SingleChildScrollView(
+              child: MultiSelectDialogField(
+                title: const Text("Теги"),
+                confirmText: const Text("Далее"),
+                cancelText: const Text("Назад"),
+                buttonText: const Text("Выберите теги"),
+                dialogHeight: 500,
+                items: tags.map((e) => MultiSelectItem(e, e)).toList(),
+                listType: MultiSelectListType.CHIP,
+                onConfirm: (values) {
+                  selectedTags = values;
+                },
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: const Text("Создать"),
+            ),
+          ),
         ],
       ),
     );
