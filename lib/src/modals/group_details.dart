@@ -30,20 +30,30 @@ class GroupDetailsModal extends StatelessWidget {
           ),
           const Divider(),
           const Text("Теги"),
+          const SizedBox(
+            height: 10,
+          ),
           group.tags.isNotEmpty
               ? GridView(
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
+                    childAspectRatio: 4,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
                   children: group.tags
-                      .map((e) => Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.green),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            height: 10,
-                          ))
+                      .map(
+                        (e) => Container(
+                          padding: EdgeInsets.all(3),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.green),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Text(e),
+                        ),
+                      )
                       .toList(),
                 )
               : const Text("Нет тегов..."),

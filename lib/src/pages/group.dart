@@ -5,10 +5,11 @@ import "package:compendio/src/pages/base.dart";
 import "package:compendio/src/services/group.dart";
 import "package:compendio/src/widgets/appbar_details.dart";
 import "package:flutter/material.dart";
+import "package:get_it/get_it.dart";
 
 class GroupPage extends StatefulWidget {
   final String name;
-  final GroupService groupService = GroupService();
+  final GroupService groupService = GetIt.I<GroupService>();
 
   GroupPage({super.key, required this.name});
 

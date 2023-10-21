@@ -1,13 +1,15 @@
 import "package:compendio/src/modals/base.dart";
+import "package:compendio/src/pages/group.dart";
 import "package:compendio/src/services/group.dart";
 import "package:compendio/src/services/tag.dart";
 import "package:flutter/material.dart";
+import "package:get_it/get_it.dart";
 import "package:material_text_fields/material_text_fields.dart";
 import "package:multi_select_flutter/multi_select_flutter.dart";
 
 class NewGroupModal extends StatefulWidget {
-  final TagService tagService = TagService();
-  final GroupService groupService = GroupService();
+  final TagService tagService = GetIt.I<TagService>();
+  final GroupService groupService = GetIt.I<GroupService>();
 
   NewGroupModal({super.key});
 
@@ -89,6 +91,14 @@ class _NewGroupModalState extends State<NewGroupModal> {
             child: ElevatedButton(
               onPressed: () async {
                 await groupService.createGroup(_input, _selectedTags);
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GroupPage(
+                      name: _input,
+                    ),
+                  ),
+                );
               },
               child: const Text("Создать"),
             ),

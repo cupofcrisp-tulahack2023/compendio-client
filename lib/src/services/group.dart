@@ -1,6 +1,7 @@
 import 'package:compendio/src/models/group.dart';
+import 'package:flutter/cupertino.dart';
 
-class GroupService {
+class GroupService extends ChangeNotifier {
   GroupService() {
     print("GROUP SERVICE CREATED");
   }
@@ -26,7 +27,7 @@ class GroupService {
 
   Future<Group> getGroupByName(String name) {
     return Future.delayed(const Duration(seconds: 2),
-            () => groups.firstWhere((element) => element.name == name));
+        () => groups.firstWhere((element) => element.name == name));
   }
 
   Future<void> createGroup(String name, List<String> tags) async {

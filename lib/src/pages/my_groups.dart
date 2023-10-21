@@ -4,9 +4,10 @@ import "package:compendio/src/services/group.dart";
 import "package:compendio/src/widgets/appbar_search.dart";
 import "package:compendio/src/widgets/box_card.dart";
 import "package:flutter/material.dart";
+import "package:get_it/get_it.dart";
 
 class MyGroupsPage extends StatefulWidget {
-  final GroupService groupService = GroupService();
+  final GroupService groupService = GetIt.I<GroupService>();
 
   MyGroupsPage({super.key});
 
