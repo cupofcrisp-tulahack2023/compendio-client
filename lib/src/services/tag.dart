@@ -14,7 +14,7 @@ class TagService {
     "Кузнечное дело",
   ];
 
-  List<String> getTags() {
-    return tags;
+  Future<List<String>> getTags() async {
+    return Future.delayed(const Duration(seconds: 1), () => tags);
   }
 }

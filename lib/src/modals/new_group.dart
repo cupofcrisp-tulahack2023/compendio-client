@@ -17,14 +17,20 @@ class NewGroupModal extends StatefulWidget {
 
 class _NewGroupModalState extends State<NewGroupModal> {
   final TagService tagService;
+  late Future<List<String>> tags;
 
-  _NewGroupModalState({required this.tagService}) {}
+  _NewGroupModalState({required this.tagService});
+
+  @override
+  void initState() {
+    super.initState();
+    tags = tagService.getTags();
+  }
 
   List<String> selectedTags = [];
 
   @override
   Widget build(BuildContext context) {
-    List<String> tags = tagService.getTags();
     return BaseModal(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,19 +45,32 @@ class _NewGroupModalState extends State<NewGroupModal> {
           Container(
             height: 300,
             child: SingleChildScrollView(
-              child: MultiSelectDialogField(
-                title: const Text("Теги"),
-                confirmText: const Text("Далее"),
-                cancelText: const Text("Назад"),
-                buttonText: const Text("Выберите теги"),
-                dialogHeight: 500,
-                items: tags.map((e) => MultiSelectItem(e, e)).toList(),
-                listType: MultiSelectListType.CHIP,
-                onConfirm: (values) {
-                  selectedTags = values;
-                },
-              ),
-            ),
+                child: FutureBuilder<List<String>>(
+                    future: tags,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<String> data = snapshot.data!;
+                        return MultiSelectDialogField(
+                          title: const Text("Теги"),
+                          confirmText: const Text("Далее"),
+                          cancelText: const Text("Назад"),
+                          buttonText: const Text("Выберите теги"),
+                          dialogHeight: 500,
+                          items:
+                              data.map((e) => MultiSelectItem(e, e)).toList(),
+                          listType: MultiSelectListType.CHIP,
+                          onConfirm: (values) {
+                            selectedTags = values;
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return Placeholder();
+                      }
+                      return const Center(
+                        heightFactor: 3,
+                        child: CircularProgressIndicator(),
+                      );
+                    })),
           ),
           const SizedBox(height: 10),
           Container(
