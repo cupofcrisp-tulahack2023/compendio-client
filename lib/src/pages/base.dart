@@ -14,8 +14,11 @@ class BasePage extends StatelessWidget {
       appBar: AppBarWidget(
         title: title,
       ),
-      drawer: const DrawerWidget(),
-      body: body,
+      drawer: DrawerWidget(),
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: body,
+      ),
     );
   }
 }

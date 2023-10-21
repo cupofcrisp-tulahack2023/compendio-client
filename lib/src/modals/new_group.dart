@@ -1,30 +1,30 @@
 import "package:compendio/src/modals/base.dart";
+import "package:compendio/src/services/tag.dart";
 import "package:flutter/material.dart";
 import "package:material_text_fields/material_text_fields.dart";
 import "package:multi_select_flutter/multi_select_flutter.dart";
 
-class NewGroupModal extends StatelessWidget {
+class NewGroupModal extends StatefulWidget {
+  final TagService tagService = TagService();
+
   NewGroupModal({super.key});
 
-  final List<String> tags = [
-    "Физика",
-    "Математика",
-    "Информатика",
-    "Начинающий уровень",
-    "Продвинутый уровень",
-    "Биология",
-    "Анатомия",
-    "Астрономия",
-    "Программирование",
-    "Музыка",
-    "Кожевничество",
-    "Кузнечное дело",
-  ];
+  @override
+  State<NewGroupModal> createState() => _NewGroupModalState(
+        tagService: tagService,
+      );
+}
+
+class _NewGroupModalState extends State<NewGroupModal> {
+  final TagService tagService;
+
+  _NewGroupModalState({required this.tagService}) {}
 
   List<String> selectedTags = [];
 
   @override
   Widget build(BuildContext context) {
+    List<String> tags = tagService.getTags();
     return BaseModal(
       height: 500,
       body: Column(

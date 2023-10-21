@@ -1,13 +1,34 @@
+import "package:animated_shimmer/animated_shimmer.dart";
 import "package:compendio/src/modals/new_group.dart";
 import "package:compendio/src/modals/profile.dart";
 import "package:compendio/src/modals/settings.dart";
+import "package:compendio/src/models/user.dart";
 import "package:compendio/src/pages/favourite.dart";
 import "package:compendio/src/pages/my_groups.dart";
 import "package:compendio/src/pages/notes.dart";
+import "package:compendio/src/services/user.dart";
 import "package:flutter/material.dart";
 
-class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
+class DrawerWidget extends StatefulWidget {
+  DrawerWidget({super.key});
+
+  @override
+  State<DrawerWidget> createState() => _DrawerWidgetState();
+}
+
+class _DrawerWidgetState extends State<DrawerWidget> {
+  final UserService userService = UserService();
+  bool _isLoading = true;
+  User user = User();
+
+  void _getUser() async {
+    return await userService.getUser().then((user) {
+      setState(() {
+        _isLoading = false;
+        this.user = user;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,33 +41,41 @@ class DrawerWidget extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               shape: BoxShape.rectangle,
             ),
-            child: GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const ProfileModal();
+            child: Builder(
+              builder: (BuildContext context) {
+                if (_isLoading) {
+                  _getUser();
+                  return AnimatedShimmer(width: double.infinity, height: 100);
+                }
+                return GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const ProfileModal();
+                      },
+                    );
                   },
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 60,
+                        width: 60,
+                        child: CircleAvatar(
+                          child: Icon(Icons.person_outline),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text("Имя пользователя"),
+                      Text("ID пользователя"),
+                    ],
+                  ),
                 );
               },
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 60,
-                    width: 60,
-                    child: CircleAvatar(
-                      child: Icon(Icons.person_outline),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text("Имя пользователя"),
-                  Text("ID пользователя"),
-                ],
-              ),
             ),
           ),
           ListTile(
