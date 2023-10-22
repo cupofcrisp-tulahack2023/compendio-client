@@ -3,6 +3,7 @@ import "package:compendio/src/modals/new_compendio.dart";
 import "package:compendio/src/models/compendio.dart";
 import "package:compendio/src/models/group.dart";
 import "package:compendio/src/pages/base.dart";
+import "package:compendio/src/pages/compendio.dart";
 import "package:compendio/src/providers/compendio/compendio_bloc.dart";
 import "package:compendio/src/services/group.dart";
 import "package:compendio/src/widgets/appbar_details.dart";
@@ -82,6 +83,9 @@ class _GroupPageState extends State<GroupPage> {
                               (e) => BoxCardWidget(
                                 name: e.name,
                                 description: e.description,
+                                nextPage: CompendioPage(
+                                  comp: e,
+                                ),
                               ),
                             )
                             .toList(),

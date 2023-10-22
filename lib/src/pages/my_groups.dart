@@ -1,6 +1,7 @@
 import "package:compendio/src/modals/new_group.dart";
 import "package:compendio/src/models/group.dart";
 import "package:compendio/src/pages/base.dart";
+import "package:compendio/src/pages/group.dart";
 import "package:compendio/src/providers/group/group_bloc.dart";
 import "package:compendio/src/services/group.dart";
 import "package:compendio/src/widgets/appbar_search.dart";
@@ -56,6 +57,9 @@ class _MyGroupsPageState extends State<MyGroupsPage> {
                               (e) => BoxCardWidget(
                                 name: e.name,
                                 description: e.description,
+                                nextPage: GroupPage(
+                                  name: e.name,
+                                ),
                               ),
                             )
                             .toList(),

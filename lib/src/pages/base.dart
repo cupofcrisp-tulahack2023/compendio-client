@@ -1,20 +1,14 @@
-import "package:compendio/src/providers/group/group_bloc.dart";
 import "package:compendio/src/widgets/appbar.dart";
 import "package:compendio/src/widgets/drawer.dart";
 import "package:flutter/material.dart";
 
 class BasePage extends StatelessWidget {
-  final GroupBloc? groupBloc;
   final Widget title;
   final Widget body;
   final FloatingActionButton? floating;
 
   const BasePage(
-      {super.key,
-      required this.body,
-      required this.title,
-      this.floating,
-      this.groupBloc});
+      {super.key, required this.body, required this.title, this.floating});
 
   @override
   Widget build(BuildContext context) {

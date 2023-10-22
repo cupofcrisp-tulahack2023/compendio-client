@@ -1,13 +1,16 @@
-import "package:compendio/src/pages/group.dart";
 import "package:design_box/box.dart";
 import "package:flutter/material.dart";
 
 class BoxCardWidget extends StatelessWidget {
   final String name;
   final String description;
+  final Widget nextPage;
 
   const BoxCardWidget(
-      {super.key, required this.name, this.description = "No description"});
+      {super.key,
+      required this.name,
+      required this.nextPage,
+      this.description = "No description"});
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +34,7 @@ class BoxCardWidget extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => GroupPage(
-              name: name,
-            ),
-          ),
+          MaterialPageRoute(builder: (context) => nextPage),
         );
       },
     );
