@@ -6,25 +6,31 @@ import "package:compendio/src/pages/favourite.dart";
 import "package:compendio/src/pages/my_groups.dart";
 import "package:compendio/src/pages/notes.dart";
 import "package:compendio/src/services/user.dart";
+import "package:compendio/src/widgets/avatar_with_border.dart";
 import "package:flutter/material.dart";
 import "package:get_it/get_it.dart";
+import "package:localstorage/localstorage.dart";
 
 class DrawerWidget extends StatefulWidget {
   final UserService userService = GetIt.I<UserService>();
+  final LocalStorage localStorage = GetIt.I<LocalStorage>();
 
   DrawerWidget({super.key});
 
   @override
   State<DrawerWidget> createState() => _DrawerWidgetState(
         userService: userService,
+        localStorage: localStorage,
       );
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
   final UserService userService;
+  final LocalStorage localStorage;
+
   late Future<User> user;
 
-  _DrawerWidgetState({required this.userService});
+  _DrawerWidgetState({required this.userService, required this.localStorage});
 
   @override
   void initState() {
@@ -61,11 +67,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const SizedBox(
+                        SizedBox(
                           height: 60,
                           width: 60,
                           child: CircleAvatar(
-                            child: Icon(Icons.person_outline),
+                            child: AvatarWithBorderWidget(
+                              avatarPath: data.avatarPath,
+                            ),
                           ),
                         ),
                         const SizedBox(

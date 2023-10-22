@@ -6,7 +6,7 @@ import "package:flutter/material.dart";
 class GroupDetailsModal extends StatelessWidget {
   final Group group;
 
-  const GroupDetailsModal({super.key, required this.group});
+  GroupDetailsModal({super.key, required this.group});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class GroupDetailsModal extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              AvatarWithBorderWidget(),
+              AvatarWithBorderWidget(avatarPath: ""),
               const SizedBox(
                 width: 20,
               ),

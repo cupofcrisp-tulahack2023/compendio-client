@@ -1,12 +1,31 @@
 import "package:compendio/src/modals/base.dart";
+import "package:compendio/src/models/user.dart";
 import "package:compendio/src/services/image.dart";
+import "package:compendio/src/services/user.dart";
 import "package:compendio/src/widgets/avatar_with_border.dart";
 import "package:flutter/material.dart";
+import "package:get_it/get_it.dart";
 
-class ProfileModal extends StatelessWidget {
-  final ImageService imageService = ImageService();
+class ProfileModal extends StatefulWidget {
 
   ProfileModal({super.key});
+
+  @override
+  State<ProfileModal> createState() => _ProfileModalState();
+}
+
+class _ProfileModalState extends State<ProfileModal> {
+  final ImageService imageService = GetIt.I<ImageService>();
+
+  final UserService userService = GetIt.I<UserService>();
+
+  late Future<User> user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = userService.getProfile();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +33,25 @@ class ProfileModal extends StatelessWidget {
       height: 450,
       body: Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              AvatarWithBorderWidget(),
-              const SizedBox(
-                width: 30,
-              ),
-              const Text("Имя пользователя"),
-            ],
+          FutureBuilder(
+            future: user,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                User data = snapshot.data!;
+                return Row(
+                  children: <Widget>[
+                    AvatarWithBorderWidget(
+                      avatarPath: data.avatarPath,
+                    ),
+                    const SizedBox(
+                      width: 30,
+                    ),
+                    Text(data.userName),
+                  ],
+                );
+              }
+              return const CircularProgressIndicator();
+            },
           ),
           const SizedBox(
             height: 20,
