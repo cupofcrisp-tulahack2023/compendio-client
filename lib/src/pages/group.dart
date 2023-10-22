@@ -69,22 +69,29 @@ class _GroupPageState extends State<GroupPage> {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : GridView(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    children: comps
-                        .map(
-                          (e) => BoxCardWidget(
-                            name: e.name,
-                            description: e.description,
-                          ),
-                        )
-                        .toList(),
-                  ),
+                : comps.isNotEmpty
+                    ? GridView(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
+                        children: comps
+                            .map(
+                              (e) => BoxCardWidget(
+                                name: e.name,
+                                description: e.description,
+                              ),
+                            )
+                            .toList(),
+                      )
+                    : const Center(
+                        child: Text(
+                          "В данной группе ещё нет конспектов.\nСтаньте первым!",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
             floating: FloatingActionButton(
               onPressed: () {
                 showDialog(

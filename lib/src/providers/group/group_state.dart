@@ -2,13 +2,13 @@ part of 'group_bloc.dart';
 
 @immutable
 class GroupState {
-  final List<Group> groups;
+  final List<Group>? groups;
 
   const GroupState({required this.groups});
 }
 
 class GroupInitial extends GroupState {
   const GroupInitial({
-    List<Group> groups = const <Group>[],
+    List<Group>? groups,
   }) : super(groups: groups);
 }

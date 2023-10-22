@@ -35,30 +35,36 @@ class _MyGroupsPageState extends State<MyGroupsPage> {
       },
       child: Builder(
         builder: (BuildContext context) {
-          List<Group> groups = context.watch<GroupBloc>().state.groups;
+          List<Group>? groups = context.watch<GroupBloc>().state.groups;
 
           return BasePage(
             title: const AppBarSearchWidget(title: "Мои группы"),
-            body: groups.isEmpty
+            body: groups == null
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : GridView(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    children: groups
-                        .map(
-                          (e) => BoxCardWidget(
-                            name: e.name,
-                            description: e.description,
-                          ),
-                        )
-                        .toList(),
-                  ),
+                : groups.isNotEmpty
+                    ? GridView(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
+                        children: groups
+                            .map(
+                              (e) => BoxCardWidget(
+                                name: e.name,
+                                description: e.description,
+                              ),
+                            )
+                            .toList(),
+                      )
+                    : const Center(
+                        child: Text(
+                          "Вы ещё не состоите ни в одной группе.",
+                        ),
+                      ),
             floating: FloatingActionButton(
               child: const Icon(Icons.add),
               onPressed: () {
